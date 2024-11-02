@@ -70,7 +70,7 @@
         .digit span {
             font-size: 3rem; /* Tamaño original desde el principio */
             transition: scale 0.5s, filter 0.5s;
-            filter: blur(0); /* Sin desenfoque inicial */
+            filter: blur(0.1rem); /* Desenfoque inicial para todos los dígitos */
         }
 
         ul {
@@ -97,6 +97,7 @@
 
         .digit:is(:hover, :focus-visible) {
             --active: var(--lerp-0);
+            filter: blur(0); /* Eliminar desenfoque en hover o foco */
         }
 
         .digit:is(:hover, :focus-visible) + .digit,
@@ -137,6 +138,11 @@
             .digit {
                 padding: 0 0.3rem; /* Menor padding entre dígitos en móviles */
             }
+
+            .digit span {
+                font-size: 2rem; /* Tamaño de fuente más pequeño en móviles */
+                filter: blur(0.1rem); /* Asegura desenfoque en móviles */
+            }
         }
     </style>
 </head>
@@ -169,3 +175,4 @@
 </script>
 </body>
 </html>
+
