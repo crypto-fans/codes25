@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,27 +17,23 @@
             place-items: center;
             font-family: "Arial", sans-serif;
             background: hsl(0, 0%, 0%);
+            gap: 2rem;
             margin: 0;
-            height: 100vh; /* Ajusta la altura del cuerpo */
-            padding: 1rem; /* Espacio interno del body */
         }
 
-        .container {
+        section {
             display: grid;
-            gap: 1rem; /* Espacio vertical reducido */
+            gap: 4rem;
             align-items: center;
             justify-content: center;
-            max-width: 400px; /* Ancho máximo del contenedor */
-            width: 100%; /* Permite que el contenedor sea responsivo */
-            padding: 1rem; /* Espacio interno */
-            background-color: hsl(0, 0%, 10%); /* Color de fondo del contenedor */
-            border-radius: 1rem; /* Bordes redondeados */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
 
-        p {
+        section p {
             margin: 0;
-            font-size: 2rem; /* Tamaño del texto del título */
+            font-size: 2.25rem;
             color: hsl(0, 0%, 40%);
             background: linear-gradient(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
             color: transparent;
@@ -50,9 +49,10 @@
             background: hsl(0, 0%, 6%);
             justify-content: center;
             box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
-            padding: 0.5rem; /* Espacio interno reducido */
+            padding: 1rem;
             overflow-x: hidden;
             width: 100%;
+            max-width: 100%;
             position: relative; /* Para posicionar el botón de copiar */
         }
 
@@ -63,7 +63,7 @@
         .digit {
             display: flex;
             height: 100%;
-            padding: 1rem 0.5rem; /* Espacio reducido entre dígitos */
+            padding: 1rem;
             transition: transform 0.2s ease; /* Suaviza la transformación */
         }
 
@@ -81,9 +81,6 @@
         ul {
             padding: 0;
             margin: 0;
-            display: flex; /* Flexbox para alinear los números horizontalmente */
-            justify-content: center; /* Centra los números */
-            gap: 0.5rem; /* Espacio entre números */
         }
 
         .digit:first-of-type {
@@ -126,7 +123,7 @@
                 font-size: 1.5rem; /* Tamaño de dígitos más pequeños */
             }
 
-            p {
+            section p {
                 font-size: 1.5rem; /* Tamaño de texto para móviles */
             }
         }
@@ -135,6 +132,7 @@
             display: flex;
             justify-content: center;
             gap: 1rem;
+            margin-top: 1rem;
         }
 
         .button {
@@ -146,72 +144,42 @@
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s;
-            display: flex; /* Flex para alinear ícono y texto */
-            align-items: center;
         }
 
         .button:hover {
             background-color: hsl(120, 100%, 40%);
         }
 
-        .telegram-button {
-            background-color: #0088cc; /* Color azul de Telegram */
-        }
-
-        .telegram-button:hover {
-            background-color: #007ab8; /* Color más oscuro al pasar el ratón */
-        }
-
         .copy-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
             background: hsl(0, 0%, 40%);
             border: none;
             border-radius: 0.5rem;
             color: white;
-            padding: 0.5rem 1rem; /* Tamaño del botón de copiar */
+            padding: 0.5rem;
             cursor: pointer;
-            display: flex; /* Flex para alinear ícono y texto */
-            align-items: center;
             transition: background-color 0.3s;
         }
 
         .copy-button:hover {
             background: hsl(0, 0%, 50%);
         }
-
-        .copy-icon {
-            margin-right: 0.5rem; /* Espacio entre ícono y texto */
-        }
-
-        .success {
-            display: none; /* Oculto por defecto */
-            color: hsl(120, 100%, 50%);
-            font-size: 1rem;
-            margin-top: 0.5rem; /* Espacio entre el mensaje de éxito y el botón */
-        }
     </style>
 </head>
 <body>
-<div class="container">
-    <section>
-        <p>Glide To Reveal Secret Code</p>
-        <button class="copy-button" id="copyButton">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Copy_icon.svg/1200px-Copy_icon.svg.png" class="copy-icon" alt="Copiar" width="20">
-            Copiar
-        </button>
-        <span class="success" id="successMessage">Copiado!</span>
-        <ul class="code" id="codeList"></ul>
-        <p>Grupos privados:</p>
-        <div class="button-container">
-            <button class="button" id="whatsappButton">
-                <img src="https://cdn-icons-png.flaticon.com/128/733/733585.png" alt="WhatsApp" width="20"> WhatsApp
-            </button>
-            <button class="button telegram-button" id="telegramButton">
-                <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram" width="20"> Telegram
-            </button>
-            <button class="button" id="discountButton">Descuentos</button>
-        </div>
-    </section>
-</div>
+<section>
+    <p>Glide To Reveal Secret Code</p>
+    <button class="copy-button" id="copyButton">📋</button>
+    <ul class="code" id="codeList"></ul>
+    <p>Grupos privados:</p>
+    <div class="button-container">
+        <button class="button" id="whatsappButton">WhatsApp</button>
+        <button class="button" id="telegramButton">Telegram</button>
+        <button class="button" id="discountButton">Descuentos</button>
+    </div>
+</section>
 
 <script>
     const novemberCodes = [
@@ -228,36 +196,32 @@
 
     secretCode.split('').forEach(digit => {
         const li = document.createElement('li');
+        li.tabIndex = 0;
         li.className = 'digit';
-        li.textContent = digit;
+        li.innerHTML = `<span>${digit}</span>`;
         codeList.appendChild(li);
     });
 
-    const copyButton = document.getElementById('copyButton');
-    const successMessage = document.getElementById('successMessage');
-
-    copyButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(secretCode)
-            .then(() => {
-                successMessage.style.display = 'block';
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 2000);
-            })
-            .catch(err => console.error('Error al copiar el código: ', err));
-    });
-
+    // Botones
     document.getElementById('whatsappButton').onclick = function() {
         window.open(`https://wa.me/595985154295?text=micodigoes%20${secretCode}`, '_blank');
     };
 
     document.getElementById('telegramButton').onclick = function() {
-        window.open(`https://t.me/cryptofans.nft?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
+        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
     };
 
     document.getElementById('discountButton').onclick = function() {
         window.open('https://creators.crypto-fans.xyz/discounts', '_blank');
     };
+
+    // Copiar al portapapeles
+    document.getElementById('copyButton').onclick = function() {
+        navigator.clipboard.writeText(secretCode).then(() => {
+            alert('Código copiado al portapapeles!');
+        });
+    };
 </script>
 </body>
 </html>
+
