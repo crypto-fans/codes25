@@ -73,7 +73,6 @@
             scale: calc(var(--active, 0) + 0.85);
             filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
             transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
-            height: 1.5rem; /* Asegura que todos los números tengan la misma altura */
         }
 
         ul {
@@ -134,6 +133,7 @@
         }
 
         .button {
+            background-color: hsl(120, 100%, 50%);
             color: white;
             border: none;
             border-radius: 0.5rem;
@@ -141,32 +141,10 @@
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s;
-            display: flex;
-            align-items: center; /* Para centrar el icono y el texto */
         }
 
-        #whatsappButton {
-            background-color: hsl(120, 100%, 50%); /* Verde */
-        }
-
-        #whatsappButton:hover {
+        .button:hover {
             background-color: hsl(120, 100%, 40%);
-        }
-
-        #telegramButton {
-            background-color: hsl(210, 100%, 50%); /* Azul */
-        }
-
-        #telegramButton:hover {
-            background-color: hsl(210, 100%, 40%);
-        }
-
-        #discountButton {
-            background-color: hsl(0, 0%, 0%); /* Negro */
-        }
-
-        #discountButton:hover {
-            background-color: hsl(0, 0%, 20%);
         }
 
         .copy-button {
@@ -180,7 +158,6 @@
             padding: 0.5rem;
             cursor: pointer;
             transition: background-color 0.3s;
-            z-index: 10; /* Aumentar z-index para que esté sobre otros elementos */
         }
 
         .copy-button:hover {
@@ -188,7 +165,7 @@
         }
 
         .success-message {
-            display: none; /* Ocultar por defecto */
+            display: none;
             color: green;
             margin-top: 1rem;
         }
@@ -196,21 +173,15 @@
 </head>
 <body>
 <section>
-    <p>Secret Code</p>
+    <p>Glide To Reveal Secret Code</p>
     <button class="copy-button" id="copyButton">📋</button>
     <ul class="code" id="codeList"></ul>
-    <p class="success-message" id="successMessage">Código copiado al portapapeles!</p> <!-- Mensaje de éxito -->
+    <p class="success-message" id="successMessage">Código copiado al portapapeles!</p>
     <p>Grupos privados:</p>
     <div class="button-container">
-        <button class="button" id="whatsappButton">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" style="width: 20px; margin-right: 5px;"> WhatsApp
-        </button>
-        <button class="button" id="telegramButton">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733554.png" alt="Telegram" style="width: 20px; margin-right: 5px;"> Telegram
-        </button>
-        <button class="button" id="discountButton">
-            <img src="https://cdn-icons-png.flaticon.com/512/5735/5735227.png" alt="Descuentos" style="width: 20px; margin-right: 5px;"> Descuentos
-        </button>
+        <button class="button" id="whatsappButton">WhatsApp</button>
+        <button class="button" id="telegramButton">Telegram</button>
+        <button class="button" id="discountButton">Descuentos</button>
     </div>
 </section>
 
@@ -223,28 +194,41 @@
     ];
 
     const today = new Date();
-    const currentDay = today.getDate();
+    const dayOfMonth = today.getUTCDate();
+    const secretCode = novemberCodes[dayOfMonth - 1] || "Código no disponible";
+    const codeList = document.getElementById('codeList');
 
-    const codeList = document.getElementById("codeList");
-    const successMessage = document.getElementById("successMessage");
-
-    novemberCodes.forEach((code, index) => {
-        const listItem = document.createElement("li");
-        listItem.className = "digit";
-        listItem.innerHTML = `<span>${code}</span>`;
-        codeList.appendChild(listItem);
+    secretCode.split('').forEach(digit => {
+        const li = document.createElement('li');
+        li.tabIndex = 0;
+        li.className = 'digit';
+        li.innerHTML = `<span>${digit}</span>`;
+        codeList.appendChild(li);
     });
 
-    const copyButton = document.getElementById("copyButton");
-    copyButton.addEventListener("click", () => {
-        const codesToCopy = novemberCodes.slice(0, currentDay).join(", ");
-        navigator.clipboard.writeText(codesToCopy).then(() => {
-            successMessage.style.display = "block"; // Mostrar el mensaje de éxito
+    // Botones
+    document.getElementById('whatsappButton').onclick = function() {
+        window.open(`https://wa.me/595985154295?text=Mi%20código%20es%3A%20${secretCode}`, '_blank');
+    };
+
+    document.getElementById('telegramButton').onclick = function() {
+        window.open(`https://t.me/elnumerodetelefono?text=Mi%20código%20es%3A%20${secretCode}`, '_blank');
+    };
+
+    document.getElementById('discountButton').onclick = function() {
+        window.open('https://creators.crypto-fans.xyz/discounts', '_blank');
+    };
+
+    // Copiar al portapapeles
+    document.getElementById('copyButton').onclick = function() {
+        navigator.clipboard.writeText(secretCode).then(() => {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block'; // Mostrar el mensaje de éxito
             setTimeout(() => {
-                successMessage.style.display = "none"; // Ocultar el mensaje después de 2 segundos
+                successMessage.style.display = 'none'; // Ocultar el mensaje después de 2 segundos
             }, 2000);
         });
-    });
+    };
 </script>
 </body>
 </html>
