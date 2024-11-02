@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +15,7 @@
             font-family: "Arial", sans-serif;
             background: hsl(0, 0%, 0%);
             gap: 2rem;
-            margin: 0; /* Elimina el margen del body para evitar desbordamientos */
+            margin: 0;
         }
 
         section {
@@ -25,15 +23,15 @@
             gap: 4rem;
             align-items: center;
             justify-content: center;
-            width: 100%; /* Asegúrate de que la sección ocupe todo el ancho disponible */
-            max-width: 400px; /* Ancho máximo para pantallas grandes */
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
 
         section p {
             margin: 0;
             font-size: 2.25rem;
             color: hsl(0, 0%, 40%);
-            text-align: center;
             background: linear-gradient(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
             color: transparent;
             background-clip: text;
@@ -49,9 +47,10 @@
             justify-content: center;
             box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
             padding: 1rem;
-            overflow-x: hidden; /* Evita el desbordamiento horizontal */
-            width: 100%; /* Ancho completo del contenedor */
-            max-width: 100%; /* Sin límite en móviles */
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            position: relative; /* Para posicionar el botón de copiar */
         }
 
         .code:hover {
@@ -62,6 +61,7 @@
             display: flex;
             height: 100%;
             padding: 1rem;
+            transition: transform 0.2s ease; /* Suaviza la transformación */
         }
 
         .digit:focus-visible {
@@ -111,36 +111,71 @@
             --active: var(--lerp-2);
         }
 
-        .digit:is(:hover, :focus-visible) + .digit + .digit + .digit,
-        .digit:has(+ .digit + .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-3);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit + .digit + .digit + .digit,
-        .digit:has(+ .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-4);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit + .digit + .digit + .digit + .digit,
-        .digit:has(+ .digit + .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-5);
-        }
-
         @media (max-width: 600px) {
             .code {
-                font-size: 2rem; /* Ajusta el tamaño de fuente para móviles */
+                font-size: 2rem; /* Tamaño de fuente para móviles */
+            }
+
+            .digit {
+                font-size: 1.5rem; /* Tamaño de dígitos más pequeños */
             }
 
             section p {
-                font-size: 1.5rem; /* Ajusta el tamaño del texto para móviles */
+                font-size: 1.5rem; /* Tamaño de texto para móviles */
             }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .button {
+            background-color: hsl(120, 100%, 50%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: hsl(120, 100%, 40%);
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: hsl(0, 0%, 40%);
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-button:hover {
+            background: hsl(0, 0%, 50%);
         }
     </style>
 </head>
 <body>
 <section>
     <p>Glide To Reveal Secret Code</p>
+    <button class="copy-button" id="copyButton">📋</button>
     <ul class="code" id="codeList"></ul>
+    <p>Grupos privados:</p>
+    <div class="button-container">
+        <button class="button" id="whatsappButton">WhatsApp</button>
+        <button class="button" id="telegramButton">Telegram</button>
+        <button class="button" id="discountButton">Descuentos</button>
+    </div>
 </section>
 
 <script>
@@ -163,6 +198,26 @@
         li.innerHTML = `<span>${digit}</span>`;
         codeList.appendChild(li);
     });
+
+    // Botones
+    document.getElementById('whatsappButton').onclick = function() {
+        window.open(`https://wa.me/595985154295?text=micodigoes%20${secretCode}`, '_blank');
+    };
+
+    document.getElementById('telegramButton').onclick = function() {
+        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
+    };
+
+    document.getElementById('discountButton').onclick = function() {
+        window.open('https://creators.crypto-fans.xyz/discounts', '_blank');
+    };
+
+    // Copiar al portapapeles
+    document.getElementById('copyButton').onclick = function() {
+        navigator.clipboard.writeText(secretCode).then(() => {
+            alert('Código copiado al portapapeles!');
+        });
+    };
 </script>
 </body>
 </html>
