@@ -5,34 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glide To Reveal Secret Code</title>
     <style>
-        /* Estilos generales */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            display: grid;
+            place-items: center;
+            font-family: "Arial", sans-serif;
+            background: hsl(0, 0%, 0%);
+            gap: 2rem;
+            margin: 0;
         }
+
+        section {
+            display: grid;
+            gap: 4rem;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        section p {
+            margin: 0;
+            font-size: 2.25rem;
+            color: hsl(0, 0%, 40%);
+            background: linear-gradient(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
+            color: transparent;
+            background-clip: text;
+        }
+
         .code {
-            list-style-type: none;
+            font-size: 3rem;
+            display: flex;
+            flex-wrap: nowrap;
+            color: hsl(0, 0%, 100%);
+            border-radius: 1rem;
+            background: hsl(0, 0%, 6%);
+            justify-content: center;
+            box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
+            padding: 1rem;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            position: relative; /* Para posicionar el botón de copiar */
+        }
+
+        .code:hover {
+            cursor: grab;
+        }
+
+        .digit {
+            display: flex;
+            height: 100%;
+            padding: 1rem;
+            transition: transform 0.2s ease; /* Suaviza la transformación */
+        }
+
+        .digit:focus-visible {
+            outline-color: hsl(0, 0%, 50% / 0.25);
+            outline-offset: 1rem;
+        }
+
+        .digit span {
+            scale: calc(var(--active, 0) + 0.85);
+            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
+            transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
+        }
+
+        ul {
             padding: 0;
+            margin: 0;
         }
-        .code .digit {
-            display: inline-block;
-            margin: 5px;
-            font-size: 24px;
-            cursor: pointer;
+
+        .digit:first-of-type {
+            padding-left: 1rem;
         }
+
+        .digit:last-of-type {
+            padding-right: 1rem;
+        }
+
+        :root {
+            --lerp-0: 1;
+            --lerp-1: calc(sin(50deg));
+            --lerp-2: calc(sin(45deg));
+            --lerp-3: calc(sin(35deg));
+            --lerp-4: calc(sin(25deg));
+            --lerp-5: calc(sin(15deg));
+        }
+
+        .digit:is(:hover, :focus-visible) {
+            --active: var(--lerp-0);
+        }
+
+        .digit:is(:hover, :focus-visible) + .digit,
+        .digit:has(+ .digit:is(:hover, :focus-visible)) {
+            --active: var(--lerp-1);
+        }
+
+        .digit:is(:hover, :focus-visible) + .digit + .digit,
+        .digit:has(+ .digit + .digit:is(:hover, :focus-visible)) {
+            --active: var(--lerp-2);
+        }
+
+        @media (max-width: 600px) {
+            .code {
+                font-size: 2rem; /* Tamaño de fuente para móviles */
+            }
+
+            .digit {
+                font-size: 1.5rem; /* Tamaño de dígitos más pequeños */
+            }
+
+            section p {
+                font-size: 1.5rem; /* Tamaño de texto para móviles */
+            }
+        }
+
         .button-container {
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
         }
+
         .button {
-            margin: 5px;
-            padding: 10px;
-            background-color: #007bff;
+            background-color: hsl(120, 100%, 50%);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
             cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
         }
+
+        .button:hover {
+            background-color: hsl(120, 100%, 40%);
+        }
+
         .copy-button {
-            background-color: #28a745;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: hsl(0, 0%, 40%);
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .copy-button:hover {
+            background: hsl(0, 0%, 50%);
         }
     </style>
 </head>
@@ -62,34 +191,34 @@
     const secretCode = novemberCodes[dayOfMonth - 1] || "Código no disponible";
     const codeList = document.getElementById('codeList');
 
-    // Crear y añadir los dígitos del código al listado
     secretCode.split('').forEach(digit => {
         const li = document.createElement('li');
         li.tabIndex = 0;
         li.className = 'digit';
-        li.textContent = digit; // Usamos textContent para evitar la inyección
+        li.innerHTML = `<span>${digit}</span>`;
         codeList.appendChild(li);
     });
 
-    // Agregar funcionalidad a los botones
-    document.getElementById('whatsappButton').addEventListener('click', () => {
-        window.open(`https://wa.me/595985154295?text=micodigoes%20${encodeURIComponent(secretCode)}`, '_blank');
-    });
+    // Botones
+    document.getElementById('whatsappButton').onclick = function() {
+        window.open(`https://wa.me/595985154295?text=micodigoes%20${secretCode}`, '_blank');
+    };
 
-    document.getElementById('telegramButton').addEventListener('click', () => {
-        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${encodeURIComponent(secretCode)}`, '_blank');
-    });
+    document.getElementById('telegramButton').onclick = function() {
+        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
+    };
 
-    document.getElementById('discountButton').addEventListener('click', () => {
+    document.getElementById('discountButton').onclick = function() {
         window.open('https://creators.crypto-fans.xyz/discounts', '_blank');
-    });
+    };
 
     // Copiar al portapapeles
-    document.getElementById('copyButton').addEventListener('click', () => {
+    document.getElementById('copyButton').onclick = function() {
         navigator.clipboard.writeText(secretCode).then(() => {
             alert('Código copiado al portapapeles!');
         });
-    });
+    };
 </script>
 </body>
 </html>
+
