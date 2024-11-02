@@ -64,8 +64,8 @@
         }
 
         .digit span {
-            scale: calc(var(--active, 0) + 0.5);
-            filter: blur(calc((1 - var(--active, 0)) * 0.5rem)); /* Borrosidad ajustada a 0.5rem */
+            scale: calc(var(--active, 0) + 0.85); /* Aumentamos el tamaño inicial a 0.8 */
+            filter: blur(calc((1 - var(--active, 0)) * 0.2rem)); /* Ajustamos el desenfoque */
             transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
         }
 
