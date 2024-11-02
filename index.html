@@ -70,8 +70,8 @@
         }
 
         .digit span {
-            scale: calc(var(--active, 0) + 0.85);
-            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
+            scale: 0.85; /* Tamaño inicial */
+            filter: blur(0); /* Sin desenfoque inicial */
             transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
         }
 
@@ -256,3 +256,4 @@
 </script>
 </body>
 </html>
+
