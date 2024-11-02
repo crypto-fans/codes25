@@ -50,7 +50,7 @@
             overflow-x: hidden;
             width: 100%;
             max-width: 100%;
-            position: relative;
+            position: relative; /* Para posicionar el botón de copiar */
         }
 
         .code:hover {
@@ -61,7 +61,7 @@
             display: flex;
             height: 100%;
             padding: 1rem;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease; /* Suaviza la transformación */
         }
 
         .digit:focus-visible {
@@ -113,15 +113,15 @@
 
         @media (max-width: 600px) {
             .code {
-                font-size: 1rem;
+                font-size: 1rem; /* Tamaño de fuente para móviles */
             }
 
             .digit {
-                font-size: 1.0rem;
+                font-size: 1.0rem; /* Tamaño de dígitos más pequeños */
             }
 
             section p {
-                font-size: 1.0rem;
+                font-size: 1.0rem; /* Tamaño de texto para móviles */
             }
         }
 
@@ -133,18 +133,47 @@
         }
 
         .button {
-            background-color: hsl(120, 100%, 50%);
-            color: white;
             border: none;
             border-radius: 0.5rem;
             padding: 0.5rem 1rem;
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
         }
 
-        .button:hover {
+        .button img {
+            margin-right: 0.5rem;
+            width: 20px; /* Ajusta el tamaño del icono */
+            height: 20px; /* Ajusta el tamaño del icono */
+        }
+
+        .button#whatsappButton {
+            background-color: hsl(120, 100%, 50%);
+            color: white;
+        }
+
+        .button#whatsappButton:hover {
             background-color: hsl(120, 100%, 40%);
+        }
+
+        .button#telegramButton {
+            background-color: #0088cc; /* Color azul para Telegram */
+            color: white;
+        }
+
+        .button#telegramButton:hover {
+            background-color: #007bb5; /* Color azul oscuro para el hover */
+        }
+
+        .button#discountButton {
+            background-color: black; /* Color negro para descuentos */
+            color: white;
+        }
+
+        .button#discountButton:hover {
+            background-color: hsl(0, 0%, 40%);
         }
 
         .copy-button {
@@ -163,12 +192,6 @@
         .copy-button:hover {
             background: hsl(0, 0%, 50%);
         }
-
-        .success-message {
-            display: none;
-            color: green;
-            margin-top: 1rem;
-        }
     </style>
 </head>
 <body>
@@ -176,12 +199,17 @@
     <p>Glide To Reveal Secret Code</p>
     <button class="copy-button" id="copyButton">📋</button>
     <ul class="code" id="codeList"></ul>
-    <p class="success-message" id="successMessage">Código copiado al portapapeles!</p>
     <p>Grupos privados:</p>
     <div class="button-container">
-        <button class="button" id="whatsappButton">WhatsApp</button>
-        <button class="button" id="telegramButton">Telegram</button>
-        <button class="button" id="discountButton">Descuentos</button>
+        <button class="button" id="whatsappButton">
+            <img src="https://cdn-icons-png.flaticon.com/128/3536/3536445.png" alt="WhatsApp">WhatsApp
+        </button>
+        <button class="button" id="telegramButton">
+            <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">Telegram
+        </button>
+        <button class="button" id="discountButton">
+            <img src="https://cdn-icons-png.flaticon.com/512/5735/5735227.png" alt="Descuentos">Descuentos
+        </button>
     </div>
 </section>
 
@@ -208,11 +236,11 @@
 
     // Botones
     document.getElementById('whatsappButton').onclick = function() {
-        window.open(`https://wa.me/595985154295?text=Mi%20código%20es%3A%20${secretCode}`, '_blank');
+        window.open(`https://wa.me/595985154295?text=micodigoes%20${secretCode}`, '_blank');
     };
 
     document.getElementById('telegramButton').onclick = function() {
-        window.open(`https://t.me/elnumerodetelefono?text=Mi%20código%20es%3A%20${secretCode}`, '_blank');
+        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
     };
 
     document.getElementById('discountButton').onclick = function() {
@@ -222,11 +250,7 @@
     // Copiar al portapapeles
     document.getElementById('copyButton').onclick = function() {
         navigator.clipboard.writeText(secretCode).then(() => {
-            const successMessage = document.getElementById('successMessage');
-            successMessage.style.display = 'block'; // Mostrar el mensaje de éxito
-            setTimeout(() => {
-                successMessage.style.display = 'none'; // Ocultar el mensaje después de 2 segundos
-            }, 2000);
+            alert('Código copiado al portapapeles!');
         });
     };
 </script>
