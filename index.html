@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,7 +48,7 @@
             background: hsl(0, 0%, 6%);
             justify-content: center;
             box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
-            padding: 1.5rem; /* Mayor espacio alrededor del contenedor */
+            padding: 1rem;
             overflow-x: hidden; /* Evita el desbordamiento horizontal */
             width: 100%; /* Ancho completo del contenedor */
             max-width: 100%; /* Sin límite en móviles */
@@ -59,7 +61,7 @@
         .digit {
             display: flex;
             height: 100%;
-            padding: 0 0.5rem; /* Menor padding entre los dígitos */
+            padding: 1rem;
         }
 
         .digit:focus-visible {
@@ -68,9 +70,9 @@
         }
 
         .digit span {
-            font-size: 3rem; /* Tamaño original desde el principio */
-            transition: scale 0.5s, filter 0.5s;
-            filter: blur(0.1rem); /* Desenfoque inicial para todos los dígitos */
+            scale: calc(var(--active, 0) + 0.85);
+            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
+            transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
         }
 
         ul {
@@ -88,22 +90,20 @@
 
         :root {
             --lerp-0: 1;
-            --lerp-1: 1.05; /* Aumenta el hover solo un 5% */
-            --lerp-2: 1.05;
-            --lerp-3: 1.05;
-            --lerp-4: 1.05;
-            --lerp-5: 1.05;
+            --lerp-1: calc(sin(50deg));
+            --lerp-2: calc(sin(45deg));
+            --lerp-3: calc(sin(35deg));
+            --lerp-4: calc(sin(25deg));
+            --lerp-5: calc(sin(15deg));
         }
 
         .digit:is(:hover, :focus-visible) {
             --active: var(--lerp-0);
-            filter: blur(0); /* Eliminar desenfoque en hover o foco */
         }
 
         .digit:is(:hover, :focus-visible) + .digit,
         .digit:has(+ .digit:is(:hover, :focus-visible)) {
             --active: var(--lerp-1);
-            filter: blur(0.1rem); /* Desenfoque leve en hover */
         }
 
         .digit:is(:hover, :focus-visible) + .digit + .digit,
@@ -133,15 +133,6 @@
 
             section p {
                 font-size: 1.5rem; /* Ajusta el tamaño del texto para móviles */
-            }
-
-            .digit {
-                padding: 0 0.3rem; /* Menor padding entre dígitos en móviles */
-            }
-
-            .digit span {
-                font-size: 2rem; /* Tamaño de fuente más pequeño en móviles */
-                filter: blur(0.1rem); /* Asegura desenfoque en móviles */
             }
         }
     </style>
@@ -175,4 +166,3 @@
 </script>
 </body>
 </html>
-
