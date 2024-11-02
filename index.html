@@ -15,6 +15,7 @@
             font-family: "Arial", sans-serif;
             background: hsl(0, 0%, 0%);
             gap: 2rem;
+            margin: 0; /* Elimina el margen del body para evitar desbordamientos */
         }
 
         section {
@@ -22,6 +23,8 @@
             gap: 4rem;
             align-items: center;
             justify-content: center;
+            width: 100%; /* Asegúrate de que la sección ocupe todo el ancho disponible */
+            max-width: 400px; /* Ancho máximo para pantallas grandes */
         }
 
         section p {
@@ -44,8 +47,9 @@
             justify-content: center;
             box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
             padding: 1rem;
-            overflow-x: auto;
-            max-width: 100%;
+            overflow-x: hidden; /* Evita el desbordamiento horizontal */
+            width: 100%; /* Ancho completo del contenedor */
+            max-width: 100%; /* Sin límite en móviles */
         }
 
         .code:hover {
@@ -64,8 +68,8 @@
         }
 
         .digit span {
-            scale: calc(var(--active, 0) + 0.85); /* Aumentamos el tamaño inicial a 0.8 */
-            filter: blur(calc((1 - var(--active, 0)) * 0.2rem)); /* Ajustamos el desenfoque */
+            scale: calc(var(--active, 0) + 0.85);
+            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
             transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
         }
 
@@ -83,7 +87,7 @@
         }
 
         :root {
-            --lerp-0: 1; /* === sin(90deg) */
+            --lerp-0: 1;
             --lerp-1: calc(sin(50deg));
             --lerp-2: calc(sin(45deg));
             --lerp-3: calc(sin(35deg));
@@ -119,6 +123,16 @@
         .digit:has(+ .digit + .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) {
             --active: var(--lerp-5);
         }
+
+        @media (max-width: 600px) {
+            .code {
+                font-size: 2rem; /* Ajusta el tamaño de fuente para móviles */
+            }
+
+            section p {
+                font-size: 1.5rem; /* Ajusta el tamaño del texto para móviles */
+            }
+        }
     </style>
 </head>
 <body>
@@ -128,22 +142,16 @@
 </section>
 
 <script>
-    // Definimos los números para cada día de noviembre (1-30)
     const novemberCodes = [
-        "10", "2221211", "211", "31", "4111", "52", "62", "7", "8", "9",
+        "10", "YMEP777", "211", "31", "4111", "52", "62", "7", "8", "9",
         "10", "11", "12", "13", "14", "15", "16", "17", "18",
         "19", "20", "21", "22", "23", "24", "25", "26", "27",
         "28", "29", "30"
     ];
 
-    // Obtener la fecha actual
     const today = new Date();
-    const dayOfMonth = today.getUTCDate(); // Usamos getUTCDate para evitar problemas de zona horaria
-
-    // Obtener el código del día actual de noviembre
+    const dayOfMonth = today.getUTCDate();
     const secretCode = novemberCodes[dayOfMonth - 1] || "Código no disponible";
-
-    // Obtener la lista del DOM y agregar los dígitos
     const codeList = document.getElementById('codeList');
 
     secretCode.split('').forEach(digit => {
@@ -156,3 +164,4 @@
 </script>
 </body>
 </html>
+
