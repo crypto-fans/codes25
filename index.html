@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
         body {
             display: grid;
             place-items: center;
-            font-family: "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
-            background: hsl(0 0% 0%);
+            font-family: "Arial", sans-serif;
+            background: hsl(0, 0%, 0%);
             gap: 2rem;
         }
 
@@ -27,9 +27,9 @@
         section p {
             margin: 0;
             font-size: 2.25rem;
-            color: hsl(0 0% 40%);
+            color: hsl(0, 0%, 40%);
             text-align: center;
-            background: linear-gradient(hsl(0 0% 80%), hsl(0 0% 50%));
+            background: linear-gradient(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
             color: transparent;
             background-clip: text;
         }
@@ -38,18 +38,14 @@
             font-size: 3rem;
             display: flex;
             flex-wrap: nowrap;
-            color: hsl(0 0% 100%);
+            color: hsl(0, 0%, 100%);
             border-radius: 1rem;
-            background: hsl(0 0% 6%);
+            background: hsl(0, 0%, 6%);
             justify-content: center;
-            box-shadow: 0 1px hsl(0 0% 100% / 0.25) inset;
+            box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
             padding: 1rem;
             overflow-x: auto;
             max-width: 100%;
-        }
-
-        .code:hover {
-            cursor: grab;
         }
 
         .digit {
@@ -58,88 +54,30 @@
             padding: 1rem;
         }
 
-        .digit:focus-visible {
-            outline-color: hsl(0 0% 50% / 0.25);
-            outline-offset: 1rem;
-        }
-
-        .digit span {
-            scale: calc(var(--active, 0) + 0.5);
-            filter: blur(calc((1 - var(--active, 0)) * 1rem));
-            transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
-        }
-
         ul {
             padding: 0;
             margin: 0;
-        }
-
-        .digit:first-of-type {
-            padding-left: 1rem;
-        }
-
-        .digit:last-of-type {
-            padding-right: 1rem;
-        }
-
-        :root {
-            --lerp-0: 1;
-            --lerp-1: calc(sin(50deg));
-            --lerp-2: calc(sin(45deg));
-            --lerp-3: calc(sin(35deg));
-            --lerp-4: calc(sin(25deg));
-            --lerp-5: calc(sin(15deg));
-        }
-
-        .digit:is(:hover, :focus-visible) {
-            --active: var(--lerp-0);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit,
-        .digit:has(+ .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-1);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit + .digit,
-        .digit:has(+ .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-2);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit + .digit + .digit,
-        .digit:has(+ .digit + .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-3);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit + .digit + .digit + .digit,
-        .digit:has(+ .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-4);
-        }
-
-        .digit:is(:hover, :focus-visible) + .digit + .digit + .digit + .digit + .digit,
-        .digit:has(+ .digit + .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) {
-            --active: var(--lerp-5);
         }
     </style>
 </head>
 <body>
 <section>
     <p>Glide To Reveal Secret Code</p>
-    <ul class="code" id="codeList">
-        <!-- Los números serán insertados aquí por JavaScript -->
-    </ul>
+    <ul class="code" id="codeList"></ul>
 </section>
+
 <script>
-    // Aquí defines los números para cada día de noviembre (1-30)
+    // Definimos los números para cada día de noviembre (1-30)
     const novemberCodes = [
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
-        "10", "11", "12", "13", "14", "15", "16", "17", "18", 
-        "19", "20", "21", "22", "23", "24", "25", "26", "27", 
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "11", "12", "13", "14", "15", "16", "17", "18",
+        "19", "20", "21", "22", "23", "24", "25", "26", "27",
         "28", "29", "30"
     ];
 
     // Obtener la fecha actual
     const today = new Date();
-    const dayOfMonth = today.getDate(); // Obtener el día del mes
+    const dayOfMonth = today.getUTCDate(); // Usamos getUTCDate para evitar problemas de zona horaria
 
     // Obtener el código del día actual de noviembre
     const secretCode = novemberCodes[dayOfMonth - 1] || "Código no disponible";
@@ -157,4 +95,3 @@
 </script>
 </body>
 </html>
-
