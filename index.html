@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,27 +50,79 @@
             overflow-x: hidden;
             width: 100%;
             max-width: 100%;
-            position: relative;
+            position: relative; /* Para posicionar el botón de copiar */
+        }
+
+        .code:hover {
+            cursor: grab;
         }
 
         .digit {
             display: flex;
             height: 100%;
             padding: 1rem;
-            transition: transform 0.2s ease;
-            scale: 1.2; /* Agrandar todos los dígitos */
+            transition: transform 0.2s ease; /* Suaviza la transformación */
+        }
+
+        .digit:focus-visible {
+            outline-color: hsl(0, 0%, 50% / 0.25);
+            outline-offset: 1rem;
         }
 
         .digit span {
-            scale: 1.2; /* Asegura que todos los dígitos estén agrandados */
-            filter: blur(0.2rem); /* Mantener el efecto de desenfoque */
-            transition: scale 0.3s, filter 0.3s;
+            scale: calc(var(--active, 0) + 0.85);
+            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
+            transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
         }
 
-        /* Efecto de hover solo para el primer dígito */
-        .digit:first-of-type span {
-            scale: 1.4;
-            filter: blur(0); /* Desenfoque eliminado en el primer dígito */
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .digit:first-of-type {
+            padding-left: 1rem;
+        }
+
+        .digit:last-of-type {
+            padding-right: 1rem;
+        }
+
+        :root {
+            --lerp-0: 1;
+            --lerp-1: calc(sin(50deg));
+            --lerp-2: calc(sin(45deg));
+            --lerp-3: calc(sin(35deg));
+            --lerp-4: calc(sin(25deg));
+            --lerp-5: calc(sin(15deg));
+        }
+
+        .digit:is(:hover, :focus-visible) {
+            --active: var(--lerp-0);
+        }
+
+        .digit:is(:hover, :focus-visible) + .digit,
+        .digit:has(+ .digit:is(:hover, :focus-visible)) {
+            --active: var(--lerp-1);
+        }
+
+        .digit:is(:hover, :focus-visible) + .digit + .digit,
+        .digit:has(+ .digit + .digit:is(:hover, :focus-visible)) {
+            --active: var(--lerp-2);
+        }
+
+        @media (max-width: 600px) {
+            .code {
+                font-size: 1rem; /* Tamaño de fuente para móviles */
+            }
+
+            .digit {
+                font-size: 1.0rem; /* Tamaño de dígitos más pequeños */
+            }
+
+            section p {
+                font-size: 1.0rem; /* Tamaño de texto para móviles */
+            }
         }
 
         .button-container {
@@ -94,8 +145,8 @@
 
         .button img {
             margin-right: 0.5rem;
-            width: 20px;
-            height: 20px;
+            width: 20px; /* Ajusta el tamaño del icono */
+            height: 20px; /* Ajusta el tamaño del icono */
         }
 
         .button#whatsappButton {
@@ -108,16 +159,16 @@
         }
 
         .button#telegramButton {
-            background-color: #0088cc;
+            background-color: #0088cc; /* Color azul para Telegram */
             color: white;
         }
 
         .button#telegramButton:hover {
-            background-color: #007bb5;
+            background-color: #007bb5; /* Color azul oscuro para el hover */
         }
 
         .button#discountButton {
-            background-color: black;
+            background-color: black; /* Color negro para descuentos */
             color: white;
         }
 
@@ -179,17 +230,17 @@
         const li = document.createElement('li');
         li.tabIndex = 0;
         li.className = 'digit';
-        li.innerHTML = `<span>${digit}</span>`;
+        li.innerHTML = <span>${digit}</span>;
         codeList.appendChild(li);
     });
 
     // Botones
     document.getElementById('whatsappButton').onclick = function() {
-        window.open(`https://wa.me/595985154295?text=mi%20codigo%20es%20${secretCode}`, '_blank');
+        window.open(https://wa.me/595985154295?text=mi%20codigo%20es%20${secretCode}, '_blank');
     };
 
     document.getElementById('telegramButton').onclick = function() {
-        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
+        window.open(https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}, '_blank');
     };
 
     document.getElementById('discountButton').onclick = function() {
@@ -204,5 +255,4 @@
     };
 </script>
 </body>
-</html>
-
+</html>  
