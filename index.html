@@ -58,23 +58,20 @@
             display: flex;
             height: 100%;
             padding: 1rem;
-            transform: scale(1.1); /* Agranda todos los dígitos */
             transition: transform 0.2s ease;
-        }
-
-        .digit:first-of-type span {
-            transform: scale(1.25); /* Efecto de hover en el primer dígito */
+            scale: 1.2; /* Agrandar todos los dígitos */
         }
 
         .digit span {
-            scale: 1;
-            filter: blur(0.1rem);
+            scale: 1.2; /* Asegura que todos los dígitos estén agrandados */
+            filter: blur(0.2rem); /* Mantener el efecto de desenfoque */
             transition: scale 0.3s, filter 0.3s;
         }
 
-        ul {
-            padding: 0;
-            margin: 0;
+        /* Efecto de hover solo para el primer dígito */
+        .digit:first-of-type span {
+            scale: 1.4;
+            filter: blur(0); /* Desenfoque eliminado en el primer dígito */
         }
 
         .button-container {
@@ -148,7 +145,7 @@
 </head>
 <body>
 <section>
-    <p>Reveal Secret Code</p>
+    <p> Reveal Secret Code</p>
     <button class="copy-button" id="copyButton">📋</button>
     <ul class="code" id="codeList"></ul>
     <p>Grupos privados:</p>
@@ -186,6 +183,7 @@
         codeList.appendChild(li);
     });
 
+    // Botones
     document.getElementById('whatsappButton').onclick = function() {
         window.open(`https://wa.me/595985154295?text=mi%20codigo%20es%20${secretCode}`, '_blank');
     };
@@ -198,6 +196,7 @@
         window.open('https://creators.crypto-fans.xyz/discounts', '_blank');
     };
 
+    // Copiar al portapapeles
     document.getElementById('copyButton').onclick = function() {
         navigator.clipboard.writeText(secretCode).then(() => {
             alert('Código copiado al portapapeles!');
