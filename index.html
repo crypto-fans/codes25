@@ -70,8 +70,8 @@
         }
 
         .digit span {
-            scale: calc(var(--active, 0) + 0.85);
-            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
+            scale: 0.85; /* Tamaño inicial */
+            filter: blur(0); /* Sin desenfoque inicial */
             transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
         }
 
@@ -230,17 +230,17 @@
         const li = document.createElement('li');
         li.tabIndex = 0;
         li.className = 'digit';
-        li.innerHTML = <span>${digit}</span>;
+        li.innerHTML = `<span>${digit}</span>`;
         codeList.appendChild(li);
     });
 
     // Botones
     document.getElementById('whatsappButton').onclick = function() {
-        window.open(https://wa.me/595985154295?text=mi%20codigo%20es%20${secretCode}, '_blank');
+        window.open(`https://wa.me/595985154295?text=mi%20codigo%20es%20${secretCode}`, '_blank');
     };
 
     document.getElementById('telegramButton').onclick = function() {
-        window.open(https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}, '_blank');
+        window.open(`https://t.me/elnumerodetelefono?text=Mi%20codigo%20es%3A%20${secretCode}`, '_blank');
     };
 
     document.getElementById('discountButton').onclick = function() {
