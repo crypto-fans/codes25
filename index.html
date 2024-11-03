@@ -22,20 +22,20 @@
 
         section {
             display: grid;
-            gap: 0.5rem; /* Reduce el espacio entre elementos */
+            gap: 1rem;
             align-items: center;
             justify-content: center;
             width: 100%;
             max-width: 800px;
             text-align: center;
-            padding: 0.5rem; /* Reduce el padding */
+            padding: 1rem; /* Agrega un poco de padding */
             height: 100%; /* Asegura que la sección ocupe el 100% de la altura */
             overflow: hidden; /* Oculta el overflow dentro de la sección */
         }
 
         section p {
             margin: 0;
-            font-size: 1.5rem; /* Tamaño de fuente ajustado */
+            font-size: 1.75rem;
             color: hsl(0, 0%, 40%);
             background: linear-gradient(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
             color: transparent;
@@ -43,7 +43,7 @@
         }
 
         .code {
-            font-size: 1.25rem; /* Tamaño de fuente ajustado */
+            font-size: 1.5rem;
             display: flex;
             flex-wrap: nowrap;
             color: hsl(0, 0%, 100%);
@@ -51,7 +51,7 @@
             background: hsl(0, 0%, 6%);
             justify-content: center;
             box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
-            padding: 0.5rem; /* Reduce el padding */
+            padding: 1rem;
             overflow-x: hidden; /* Mantiene el overflow oculto */
             width: 100%; /* Asegura que ocupe el 100% del ancho */
             max-width: 100%;
@@ -65,13 +65,13 @@
         .digit {
             display: flex;
             height: 100%;
-            padding: 0.5rem; /* Reduce el padding */
+            padding: 1rem;
             transition: transform 0.2s ease; /* Suaviza la transformación */
         }
 
         .digit:focus-visible {
             outline-color: hsl(0, 0%, 50% / 0.25);
-            outline-offset: 0.5rem; /* Reduce el offset */
+            outline-offset: 1rem;
         }
 
         .digit span {
@@ -86,11 +86,11 @@
         }
 
         .digit:first-of-type {
-            padding-left: 0.5rem; /* Reduce el padding */
+            padding-left: 1rem;
         }
 
         .digit:last-of-type {
-            padding-right: 0.5rem; /* Reduce el padding */
+            padding-right: 1rem;
         }
 
         :root {
@@ -122,17 +122,11 @@
             }
 
             .digit {
-                font-size: 0.9rem; /* Tamaño de dígitos más pequeños */
-                padding: 0.2rem; /* Reduce el padding en móviles */
+                font-size: 1.0rem; /* Tamaño de dígitos más pequeños */
             }
 
             section p {
                 font-size: 1.0rem; /* Tamaño de texto para móviles */
-            }
-
-            .button-container {
-                flex-direction: column; /* Cambia a columna para una mejor visualización */
-                gap: 0.3rem; /* Reduce el espacio entre botones */
             }
         }
 
@@ -146,10 +140,18 @@
         .button {
             border: none;
             border-radius: 0.5rem;
-            padding: 0.5rem 0.75rem; /* Reduce el padding */
+            padding: 0.5rem 1rem;
             cursor: pointer;
-            font-size: 1rem; /* Ajusta el tamaño de fuente */
+            font-size: 1rem;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .button img {
+            margin-right: 0.5rem;
+            width: 20px; /* Ajusta el tamaño del icono */
+            height: 20px; /* Ajusta el tamaño del icono */
         }
 
         .button#whatsappButton {
@@ -204,9 +206,15 @@
     <ul class="code" id="codeList"></ul>
     <p>Grupos privados:</p>
     <div class="button-container">
-        <button class="button" id="whatsappButton">WhatsApp</button>
-        <button class="button" id="telegramButton">Telegram</button>
-        <button class="button" id="discountButton">Descuentos</button>
+        <button class="button" id="whatsappButton">
+            <img src="https://cdn-icons-png.flaticon.com/128/3536/3536445.png" alt="WhatsApp">WhatsApp
+        </button>
+        <button class="button" id="telegramButton">
+            <img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" alt="Telegram">Telegram
+        </button>
+        <button class="button" id="discountButton">
+            <img src="https://cdn-icons-png.flaticon.com/512/5735/5735227.png" alt="Descuentos">Descuentos
+        </button>
     </div>
 </section>
 
@@ -253,4 +261,3 @@
 </script>
 </body>
 </html>
-
