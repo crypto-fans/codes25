@@ -2,216 +2,30 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Glide To Reveal Secret Code</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            display: grid;
-            place-items: center;
-            font-family: "Arial", sans-serif;
-            background: hsl(0, 0%, 0%);
-            gap: 0.2rem;
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        section {
-            display: grid;
-            gap: 1rem;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 800px;
-            text-align: center;
-            padding: 1rem;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        section p {
-            margin: 0;
-            font-size: 1.75rem;
-            color: hsl(0, 0%, 40%);
-            background: linear-gradient(hsl(0, 0%, 80%), hsl(0, 0%, 50%));
-            color: transparent;
-            background-clip: text;
-        }
-
-        .code {
-            font-size: 2.5rem;
-            display: flex;
-            flex-wrap: nowrap;
-            color: hsl(0, 0%, 100%);
-            border-radius: 1rem;
-            background: hsl(0, 0%, 6%);
-            justify-content: center;
-            box-shadow: 0 1px hsl(0, 0%, 100% / 0.25) inset;
-            padding: 1rem;
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 100%;
-            position: relative;
-        }
-
-        .code:hover {
-            cursor: grab;
-        }
-
-        .digit {
-            display: flex;
-            height: 100%;
-            padding: 1rem;
-            transition: transform 0.2s ease;
-        }
-
-        .digit span {
-            scale: calc(var(--active, 0) + 0.85);
-            filter: blur(calc((1 - var(--active, 0)) * 0.2rem));
-            transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s), filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
-        }
-
-        ul {
-            padding: 0;
-            margin: 0;
-        }
-
-        .digit:first-of-type {
-            padding-left: 1rem;
-        }
-
-        .digit:last-of-type {
-            padding-right: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .code {
-                font-size: 1rem;
-            }
-
-            .digit {
-                font-size: 1.0rem;
-            }
-
-            section p {
-                font-size: 1.0rem;
-            }
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .button {
-            border: none;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .button#whatsappButton {
-            background-color: hsl(120, 100%, 50%);
-            color: white;
-        }
-
-        .button#whatsappButton:hover {
-            background-color: hsl(120, 100%, 40%);
-        }
-
-        .button#telegramButton {
-            background-color: #0088cc;
-            color: white;
-        }
-
-        .button#telegramButton:hover {
-            background-color: #007bb5;
-        }
-
-        .button#discountButton {
-            background-color: black;
-            color: white;
-        }
-
-        .button#discountButton:hover {
-            background-color: hsl(0, 0%, 40%);
-        }
-
-        .copy-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: hsl(0, 0%, 40%);
-            border: none;
-            border-radius: 0.5rem;
-            color: white;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .copy-button:hover {
-            background: hsl(0, 0%, 50%);
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Dirección</title>
 </head>
 <body>
-<section>
-    <p>Reveal Wallet Code</p>
-    <button class="copy-button" id="copyButton">📋</button>
-    <ul class="code" id="codeList"></ul>
-    <p>Grupos privados:</p>
-    <div class="button-container">
-        <button class="button" id="whatsappButton">WhatsApp</button>
-        <button class="button" id="telegramButton">Telegram</button>
-        <button class="button" id="discountButton">Descuentos</button>
-    </div>
-</section>
-
-<script>
-    // Obtener el código de la wallet
-    const walletElement = document.querySelector(".MuiTypography-root.MuiTypography-caption.MuiTypography-alignLeft");
-    const walletCode = walletElement ? walletElement.innerText : "Código no disponible";
-    
-    // Dividir y mostrar los dígitos en el efecto de revelación
-    const codeList = document.getElementById('codeList');
-    walletCode.split('').forEach(digit => {
-        const li = document.createElement('li');
-        li.tabIndex = 0;
-        li.className = 'digit';
-        li.innerHTML = '<span>' + digit + '</span>';
-        codeList.appendChild(li);
-    });
-
-    // Funcionalidad de los botones
-    document.getElementById('whatsappButton').onclick = function() {
-        window.open('https://wa.me/595985154295?text=mi%20codigo%20es%20' + walletCode, '_blank');
-    };
-
-    document.getElementById('telegramButton').onclick = function() {
-        window.open('https://t.me/share/url?url=mi%20codigo%20es%20' + walletCode, '_blank');
-    };
-
-    document.getElementById('discountButton').onclick = function() {
-        window.open('https://creators.crypto-fans.xyz/discounts', '_blank');
-    };
-
-    // Copiar al portapapeles
-    document.getElementById('copyButton').onclick = function() {
-        navigator.clipboard.writeText(walletCode).then(() => {
-            alert('Código copiado: ' + walletCode);
-        });
-    };
-</script>
+    <!-- Script para obtener y mostrar la dirección -->
+    <script>
+        try {
+            const widgetDiv = document.querySelector('.MuiTypography-root.MuiTypography-caption.MuiTypography-alignLeft.css-19wakw1');
+            if (!widgetDiv) {
+                throw new Error('No se encontró el elemento con la clase especificada.');
+            }
+            const addressText = widgetDiv.textContent;
+            const addressRegex = /0x[a-fA-F0-9]{4,}\.\.\.[a-fA-F0-9]{5}/;
+            if (!addressRegex.test(addressText)) {
+                throw new Error('El texto no coincide con el formato esperado de dirección.');
+            }
+            console.log('Dirección encontrada:', addressText);
+        } catch (error) {
+            if (error.message.includes('bloqueado')) {
+                console.error('Error: JavaScript parece estar bloqueado en esta página.');
+            } else {
+                console.error(error.message);
+            }
+        }
+    </script>
 </body>
 </html>
